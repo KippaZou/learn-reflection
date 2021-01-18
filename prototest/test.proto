@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto.test;
+
+option go_package = "test";
+
+message Demo {
+    string field1 = 1;
+    int32 field2 = 2;
+    repeated string field3 = 3;
+    uint64 field4 = 4;
+    string field5 = 5;
+    string field6 = 6;
+    bytes field7 = 7;
+}
