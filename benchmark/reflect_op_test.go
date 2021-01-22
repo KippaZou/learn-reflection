@@ -1,5 +1,5 @@
 // referred from https://colobu.com/2019/01/29/go-reflect-performance/
-package test
+package benchmark
 
 import (
 	"reflect"
@@ -13,6 +13,7 @@ type Student struct {
 	Score int
 }
 
+// BenchmarkReflect_New-12                 27316540                43.8 ns/op
 func BenchmarkReflect_New(b *testing.B) {
 	var s *Student
 	sv := reflect.TypeOf(Student{})
@@ -24,6 +25,7 @@ func BenchmarkReflect_New(b *testing.B) {
 	_ = s
 }
 
+// BenchmarkDirect_New-12                  39993478                29.7 ns/op
 func BenchmarkDirect_New(b *testing.B) {
 	var s *Student
 	b.ResetTimer()
@@ -33,6 +35,7 @@ func BenchmarkDirect_New(b *testing.B) {
 	_ = s
 }
 
+// BenchmarkReflect_SetFieldByName-12       3993316               306 ns/op
 func BenchmarkReflect_SetFieldByName(b *testing.B) {
 	sv := reflect.TypeOf(Student{})
 	b.ResetTimer()
@@ -45,6 +48,7 @@ func BenchmarkReflect_SetFieldByName(b *testing.B) {
 	}
 }
 
+// BenchmarkReflect_SetFieldByIndex-12     17714866                66.6 ns/op
 func BenchmarkReflect_SetFieldByIndex(b *testing.B) {
 	sv := reflect.TypeOf(Student{})
 	b.ResetTimer()
@@ -57,6 +61,7 @@ func BenchmarkReflect_SetFieldByIndex(b *testing.B) {
 	}
 }
 
+// BenchmarkReflect_Set-12                 26631484                45.5 ns/op
 func BenchmarkReflect_Set(b *testing.B) {
 	var s *Student
 	sv := reflect.TypeOf(Student{})
@@ -71,6 +76,7 @@ func BenchmarkReflect_Set(b *testing.B) {
 	}
 }
 
+// BenchmarkDirect_Set-12                  38555898                30.8 ns/op
 func BenchmarkDirect_Set(b *testing.B) {
 	var s *Student
 	b.ResetTimer()
@@ -98,6 +104,7 @@ func InterfaceInvoke(i interface{}) {
 	s.Score = 100
 }
 
+// BenchmarkDirectInvoke-12                1000000000               0.250 ns/op
 func BenchmarkDirectInvoke(b *testing.B) {
 	s := new(Student)
 	for i := 0; i < b.N; i++ {
@@ -106,6 +113,7 @@ func BenchmarkDirectInvoke(b *testing.B) {
 	_ = s
 }
 
+// BenchmarkInterfaceInvoke-12             750168187                1.51 ns/op
 func BenchmarkInterfaceInvoke(b *testing.B) {
 	s := new(Student)
 	for i := 0; i < b.N; i++ {

@@ -3,13 +3,14 @@ package prototest
 import (
 	"testing"
 
-	test "github.com/KippaZou/learn-reflection/prototest/protoc-go"
-	test2 "github.com/KippaZou/learn-reflection/prototest/protoc-gogo-fast"
+	test "github.com/KippaZou/learn-reflection/benchmark/prototest/protoc-go"
+	test2 "github.com/KippaZou/learn-reflection/benchmark/prototest/protoc-gogo-fast"
 	proto2 "github.com/gogo/protobuf/proto"
 	"github.com/golang/protobuf/proto"
 	"github.com/stretchr/testify/require"
 )
 
+// BenchmarkProtoGoMarshal-12                       4792279               244 ns/op
 func BenchmarkProtoGoMarshal(b *testing.B) {
 	demo := &test.Demo{}
 	_, err := proto2.Marshal(demo)
@@ -20,6 +21,7 @@ func BenchmarkProtoGoMarshal(b *testing.B) {
 	}
 }
 
+// BenchmarkProtoGoUnMarshal-12                     6835482               173 ns/op
 func BenchmarkProtoGoUnMarshal(b *testing.B) {
 	demo := &test.Demo{}
 	d, err := proto.Marshal(demo)
@@ -30,6 +32,7 @@ func BenchmarkProtoGoUnMarshal(b *testing.B) {
 	}
 }
 
+// BenchmarkProtoGoGoFastMarshalV1-12              41996274                27.8 ns/op
 func BenchmarkProtoGoGoFastMarshalV1(b *testing.B) {
 	demo := &test2.Demo{}
 	_, err := proto2.Marshal(demo)
@@ -40,6 +43,7 @@ func BenchmarkProtoGoGoFastMarshalV1(b *testing.B) {
 	}
 }
 
+// BenchmarkProtoGoGoFastUnMarshalV1-12            66546132                18.2 ns/op
 func BenchmarkProtoGoGoFastUnMarshalV1(b *testing.B) {
 	demo := &test2.Demo{}
 	d, err := proto2.Marshal(demo)
@@ -50,6 +54,7 @@ func BenchmarkProtoGoGoFastUnMarshalV1(b *testing.B) {
 	}
 }
 
+// BenchmarkProtoGoGoFastMarshalV2-12              93389283                12.7 ns/op
 func BenchmarkProtoGoGoFastMarshalV2(b *testing.B) {
 	demo := &test2.Demo{}
 	_, err := demo.Marshal()
@@ -60,6 +65,7 @@ func BenchmarkProtoGoGoFastMarshalV2(b *testing.B) {
 	}
 }
 
+// BenchmarkProtoGoGoFastUnMarshalV2-12            481613683                2.48 ns/op
 func BenchmarkProtoGoGoFastUnMarshalV2(b *testing.B) {
 	demo := &test2.Demo{}
 	d, err := demo.Marshal()
